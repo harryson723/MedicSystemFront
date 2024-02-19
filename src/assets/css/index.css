@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.img-radius-banner1 {
+    border-radius: 85% 15% 0% 100% / 100% 0% 100% 0%;
+    position: relative;
+    width: 55%;
+    height: 42%;
+    right: 0;
+    top: 8.4%;
+}
+
+.img-radius-banner2 {
+    border-radius: 0% 100% 100% 0% / 100% 0% 100% 0%;
+    position: relative;
+    width: 45%;
+    height: 20%;
+    left: 0;
+    bottom: 0;
+}
+
+
+
