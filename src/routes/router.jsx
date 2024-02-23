@@ -5,7 +5,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CreateProvider from "../pages/Dashboard/CreateProvider";
 import CreateService from "../pages/Dashboard/componenets/CreateService";
 import CreateSuscription from "../pages/Dashboard/componenets/CreateSuscription";
-import SignRoutes from "./singRoute";
 import Login from "../pages/Login/Login";
 import RegisterClient from "../pages/Client/RegisterClient";
 

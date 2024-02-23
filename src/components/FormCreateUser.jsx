@@ -2,6 +2,18 @@ import useFormHandle from "../hooks/useFormHandle";
 import ButtonSubmit from "./ButtonSubmit";
 import Form from "./Form";
 import InputForm from "./InputForm";
+import SelectForm from "./SelectForm";
+
+const options = [
+  {
+    label: "CEDULA DE CIUDADANIA",
+    value: "cedula de ciudadania",
+  },
+  {
+    label: "TARJETA DE IDENTIDAD",
+    value: "tarjeta de identidad",
+  },
+];
 
 export default function FormCreateUser({ rol = "client" }) {
   const { form, handleForm } = useFormHandle({
@@ -55,7 +67,7 @@ export default function FormCreateUser({ rol = "client" }) {
       </div>
       <div>
         <label htmlFor="documentType">Tipo de documento:</label>
-        <select name="documentType" id="documentType"></select>
+        <SelectForm defaultV="Seleccione" options={options} />
       </div>
       <div>
         <label htmlFor="document">Numero de documento:</label>
@@ -82,6 +94,7 @@ export default function FormCreateUser({ rol = "client" }) {
           value={form.password}
           handleForm={handleForm}
           placeholder="Ingrese su contraseña"
+          type="password"
         ></InputForm>
       </div>
 
