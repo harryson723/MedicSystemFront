@@ -1,10 +1,14 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './assets/css/index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import "./assets/css/index.css";
+import { PrimeReactProvider, PrimeReactContext } from "primereact/api";
+import "primereact/resources/themes/lara-light-blue/theme.css"
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+    <PrimeReactProvider>
+      <App />
+    </PrimeReactProvider>
+  </React.StrictMode>
+);
