@@ -37,4 +37,11 @@
     width: 100%;
 }
 
+.btn-submit {
+    transition: .3s;
+}
 
+.btn-submit:hover {
+    cursor: pointer;
+    background-color: #0d5f96;
+}

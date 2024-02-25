@@ -1,7 +1,15 @@
-import useFormHandle from "../../../hooks/useFormHandle";
-import ButtonSubmit from "../../../components/ButtonSubmit";
-import Form from "../../../components/Form";
-import InputForm from "../../../components/InputForm";
+import useFormHandle from "../../hooks/useFormHandle";
+import ButtonSubmit from "../../components/ButtonSubmit";
+import Form from "../../components/Form";
+import InputForm from "../../components/InputForm";
+import SelectForm from "../../components/SelectForm";
+
+const options = [
+  {
+    label: "Medico",
+    value: "medico"
+  }
+];
 
 export default function CreateService() {
   const { form, handleForm } = useFormHandle({
@@ -34,7 +42,7 @@ export default function CreateService() {
       </div>
       <div>
         <label htmlFor="typeService">Tipo de servicio:</label>
-        <select name="typeService" id="typeService"></select>
+        <SelectForm id="typeService" defaultV="Seleccione" options={options} />
       </div>
       <div>
         <label htmlFor="price">Precio:</label>

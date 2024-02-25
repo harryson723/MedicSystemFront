@@ -1,12 +1,26 @@
 import useFormHandle from "../hooks/useFormHandle";
+import request from "../utils/request";
+import urls from "../utils/urls";
 import ButtonSubmit from "./ButtonSubmit";
 import Form from "./Form";
 import InputForm from "./InputForm";
+import SelectForm from "./SelectForm";
+
+const options = [
+  {
+    label: "CEDULA DE CIUDADANIA",
+    value: "cedula de ciudadania",
+  },
+  {
+    label: "TARJETA DE IDENTIDAD",
+    value: "tarjeta de identidad",
+  },
+];
 
 export default function FormCreateUser({ rol = "client" }) {
   const { form, handleForm } = useFormHandle({
-    firtsName: "",
-    lastName: "",
+    firstname: "",
+    lastname: "",
     username: "",
     email: "",
     documentType: "",
@@ -15,22 +29,40 @@ export default function FormCreateUser({ rol = "client" }) {
     password: "",
     rol,
   });
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+
+    const res = await request(urls.user.create, {
+      mode: 'cors',
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzYW50aWFnbyIsImlhdCI6MTcwODgyMjQ4NiwiZXhwIjoxNzA4OTA4ODg2fQ.Ab6g3UjOZ7NGFrStonbWj5WjTqB8to1ys_fGF-QTg_g"
+      },
+      body: JSON.stringify({
+        ...form,
+        rol: [form.rol.toUpperCase()]
+      })
+    });
+    console.log(res);
+  };
   return (
     <Form>
       <div>
-        <label htmlFor="firtsName">Nombre:</label>
+        <label htmlFor="firstname">Nombre:</label>
         <InputForm
-          name="firtsName"
-          value={form.firtsName}
+          name="firstname"
+          value={form.firstname}
           handleForm={handleForm}
           placeholder="Ingrese su nombre"
         ></InputForm>
       </div>
       <div>
-        <label htmlFor="lastName">Apellido:</label>
+        <label htmlFor="lastname">Apellido:</label>
         <InputForm
-          name="lastName"
-          value={form.lastName}
+          name="lastname"
+          value={form.lastname}
           handleForm={handleForm}
           placeholder="Ingrese su apellido"
         ></InputForm>
@@ -55,7 +87,7 @@ export default function FormCreateUser({ rol = "client" }) {
       </div>
       <div>
         <label htmlFor="documentType">Tipo de documento:</label>
-        <select name="documentType" id="documentType"></select>
+        <SelectForm id="documentType" defaultV="Seleccione" options={options} />
       </div>
       <div>
         <label htmlFor="document">Numero de documento:</label>
@@ -82,10 +114,12 @@ export default function FormCreateUser({ rol = "client" }) {
           value={form.password}
           handleForm={handleForm}
           placeholder="Ingrese su contraseña"
+          type="password"
         ></InputForm>
       </div>
 
-      <ButtonSubmit></ButtonSubmit>
+      <ButtonSubmit handleSubmit={handleSubmit}></ButtonSubmit>
     </Form>
+
   );
 }
