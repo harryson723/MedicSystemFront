@@ -6,7 +6,7 @@ export default function SelectForm({ id, defaultV, options }) {
       className="border
         border-gray-300
         rounded-xl
-        p-4 mt-3 mb-5 pr-11
+        p-4 mt-3 pr-11
         bg-white block w-[75%]"
       defaultValue={defaultV}
     >

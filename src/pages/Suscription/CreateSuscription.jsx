@@ -11,46 +11,60 @@ import { useContext, useState } from "react";
 import List from "../../components/List";
 import Colunm from "../../components/Columns";
 import UserList from "../../components/UserList";
+import verifyForm, { verifyNumber } from "../../utils/verifyForm";
 
 const options = [
   {
     label: "Activo",
-    value: "available"
+    value: "available",
   },
   {
     label: "Deshabilitado",
-    value: "disable"
-  }
+    value: "disable",
+  },
 ];
+
+const verifies = {
+  providerId: verifyNumber,
+  clientId: verifyNumber,
+  stauts: verifyNumber
+};
+
+const initialForm = {
+  providerId: "",
+  clientId: "",
+  stauts: "",
+};
 
 export default function CreateSuscription() {
   const { user } = useContext(UserContext);
   const [client, setClient] = useState([]);
   const [showTable, setShowTable] = useState(false);
-  const { form, handleForm } = useFormHandle({
-    providerId: "",
-    clientId: "",
-    stauts: "",
-  });
+  const { form, handleForm } = useFormHandle(initialForm, verifies);
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-  }
+    const parent = e.target.parentElement.parentElement;
+    if (verifyForm(parent)) {
+    }
+  };
 
   const searchUser = async (e, rol) => {
     e.preventDefault();
-    const value = e.target.parentElement.querySelector('input').value;
-    const data = await request(urls.user.findByDocumentNumber
-      + `?documentNumber=${value}&rol=${rol}`, {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + user.token
-      },
-    });
+    const value = e.target.parentElement.querySelector("input").value;
+    const data = await request(
+      urls.user.findByDocumentNumber + `?documentNumber=${value}&rol=${rol}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + user.token,
+        },
+      }
+    );
     setShowTable(true);
     if (data.error) return setClient([]);
     setClient([data]);
-  }
+  };
 
   return (
     <div className="w-full">
@@ -63,7 +77,7 @@ export default function CreateSuscription() {
             handleForm={handleForm}
             placeholder="Ingrese el numero de documento"
           ></InputForm>
-          <Button text="Buscar" onclick={e => searchUser(e, 'PROVIDER')} />
+          <Button text="Buscar" onclick={(e) => searchUser(e, "PROVIDER")} />
         </div>
         <div>
           <label htmlFor="clientId">Documento cliente:</label>
@@ -73,7 +87,7 @@ export default function CreateSuscription() {
             handleForm={handleForm}
             placeholder="Ingrese el numero de documento"
           ></InputForm>
-          <Button text="Buscar" onclick={e => searchUser(e, 'CLIENT')} />
+          <Button text="Buscar" onclick={(e) => searchUser(e, "CLIENT")} />
         </div>
         <div>
           <label htmlFor="status">Tipo de servicio:</label>
@@ -81,19 +95,19 @@ export default function CreateSuscription() {
         </div>
         <ButtonSubmit value="Crear" handleSubmit={handleSubmit} />
       </Form>
-      {showTable &&
+      {showTable && (
         <List
-          data={<UserList items={client}
-            option="pi pi-check-square"
-          />}
-          title="">
+          data={<UserList items={client} option="pi pi-check-square" />}
+          title=""
+        >
           <Colunm>Correo electronico</Colunm>
           <Colunm>Tipo de documento</Colunm>
           <Colunm>Numero de documento</Colunm>
           <Colunm>Nombre de usuario</Colunm>
           <Colunm>Nombres</Colunm>
           <Colunm>Apellidos</Colunm>
-        </List>}
+        </List>
+      )}
     </div>
   );
 }

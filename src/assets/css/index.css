@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+input:focus {
+    outline: none;
+}
+
+input,select {
+    transition: .4s ease-in-out;
+}
+
 
 .img-radius-banner1 {
     border-radius: 85% 15% 0% 100% / 100% 0% 100% 0%;
@@ -44,4 +52,19 @@
 .btn-submit:hover {
     cursor: pointer;
     background-color: #0d5f96;
+}
+
+.input-error {
+    border-color: #E53030;
+}
+
+.input-error::placeholder, .input-error option.first:disabled { 
+    color: #f86868;
+}
+
+.span-error { 
+    color: #f86868;
+    display: block;
+    font-size: 0.9rem;
+    margin: 5px 0 20px 10px;
 }
