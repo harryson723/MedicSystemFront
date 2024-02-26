@@ -1,6 +1,6 @@
 import Cell from "./Cell";
 
-export default function UserList({ items }) {
+export default function UserList({ items, option }) {
 
     return (
         <>
@@ -8,6 +8,7 @@ export default function UserList({ items }) {
                 <>
                     {items.map((item, index) => 
                     <tr key={"Row-content-" + index}>
+                        <Cell text={<i className={option}></i>}/>
                         <Cell text={item.email} />
                         <Cell text={item.documentType} />
                         <Cell text={item.documentNumber} />
@@ -18,7 +19,7 @@ export default function UserList({ items }) {
                 </>
                 :
                 <tr>
-                    <td>Cargando datos</td>
+                    <td className="col-span-6">No existen registros</td>
                 </tr>}
         </>
     )

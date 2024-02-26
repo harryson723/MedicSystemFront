@@ -12,38 +12,41 @@ import GetSuscription from "../pages/Suscription/GetSuscription";
 import Welcome from "../pages/Dashboard/componenets/Welcome";
 import CreateSuscription from "../pages/Suscription/CreateSuscription";
 import CreateService from "../pages/Service/CreateService";
+import { UserProvier } from "../contexts/UserContext";
 
 export default function RouterRoutes() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<RegisterClient />} />
-        <Route path="/dashboard" element={<Dashboard />} >
-          <Route path="" element={<Welcome />} />
-          <Route path="administration" element={<Welcome />} />
+    <UserProvier>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<RegisterClient />} />
+          <Route path="/dashboard" element={<Dashboard />} >
+            <Route path="" element={<Welcome />} />
+            <Route path="administration" element={<Welcome />} />
 
-          <Route path="providers">
-            <Route path="" element={<GetProvider />} />
-            <Route path="create" element={<CreateProvider />} />
-          </Route>
+            <Route path="providers">
+              <Route path="" element={<GetProvider />} />
+              <Route path="create" element={<CreateProvider />} />
+            </Route>
 
-          <Route path="clients">
-            <Route path="" element={<GetClient />} />
-            <Route path="create" element={<CreateClient />} />
-          </Route>
+            <Route path="clients">
+              <Route path="" element={<GetClient />} />
+              <Route path="create" element={<CreateClient />} />
+            </Route>
 
-          <Route path="services">
-            <Route path="" element={<GetService />} />
-            <Route path="create" element={<CreateService />} />
-          </Route>
+            <Route path="services">
+              <Route path="" element={<GetService />} />
+              <Route path="create" element={<CreateService />} />
+            </Route>
 
-          <Route path="suscriptions">
-            <Route path="" element={<GetSuscription />} />
-            <Route path="create" element={<CreateSuscription />} />
+            <Route path="suscriptions">
+              <Route path="" element={<GetSuscription />} />
+              <Route path="create" element={<CreateSuscription />} />
+            </Route>
           </Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </UserProvier>
   );
 }

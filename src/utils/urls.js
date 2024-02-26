@@ -5,7 +5,7 @@ const urls = {
         provider: baseURL + "user/provider",
         client: baseURL + "user/client",
         create: baseURL + "user/",
-        findByDocumentNumber: baseURL + "user/documentNumber/",
+        findByDocumentNumber: baseURL + "user/documentNumber",
     },
     services: {
         get: baseURL + "service/"

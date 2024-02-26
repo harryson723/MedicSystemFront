@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import request from "../utils/request";
+import UserContext from "../contexts/UserContext";
 
 export default function useRequest(url, options = {}) {
     const [data, setData] = useState([]);
+    const { user } = useContext(UserContext);
 
     useEffect(() => {
         (async () => {
@@ -11,7 +13,7 @@ export default function useRequest(url, options = {}) {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzYW50aWFnbyIsImlhdCI6MTcwODgyMjQ4NiwiZXhwIjoxNzA4OTA4ODg2fQ.Ab6g3UjOZ7NGFrStonbWj5WjTqB8to1ys_fGF-QTg_g"
+                    "Authorization": "Bearer " + user.token
                 },
                 ...options
             });
