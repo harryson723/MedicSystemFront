@@ -113,7 +113,7 @@ export default function FormCreateUser({ rol = "client" }) {
       </div>
       <div>
         <label htmlFor="documentType">Tipo de documento:</label>
-        <SelectForm id="documentType" defaultV="Seleccione" options={options} />
+        <SelectForm id="documentType" defaultV="Seleccione" options={options} handleForm={handleForm} />
       </div>
       <div>
         <label htmlFor="document">Numero de documento:</label>

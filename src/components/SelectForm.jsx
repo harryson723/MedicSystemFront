@@ -1,4 +1,4 @@
-export default function SelectForm({ id, defaultV, options }) {
+export default function SelectForm({ id, defaultV, options, handleForm }) {
   return (
     <select
       name={id}
@@ -9,6 +9,7 @@ export default function SelectForm({ id, defaultV, options }) {
         p-4 mt-3 pr-11
         bg-white block w-[75%]"
       defaultValue={defaultV}
+      onChange={handleForm}
     >
       <option value={defaultV} disabled>
         {defaultV}

@@ -68,3 +68,15 @@ input,select {
     font-size: 0.9rem;
     margin: 5px 0 20px 10px;
 }
+
+i {
+    padding: 5px;
+    border-radius: 15px;
+    color: #333;
+    transition: .6s ease;
+}
+
+i:hover {
+    cursor: pointer;
+    background-color: #eee;
+}
