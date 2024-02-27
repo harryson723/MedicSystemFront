@@ -11,7 +11,7 @@ import { useContext, useState } from "react";
 import List from "../../components/List";
 import Colunm from "../../components/Columns";
 import UserList from "../../components/UserList";
-import verifyForm, { verifyNumber } from "../../utils/verifyForm";
+import verifyForm, { verifyDocument, verifySelect } from "../../utils/verifyForm";
 
 const options = [
   {
@@ -25,15 +25,15 @@ const options = [
 ];
 
 const verifies = {
-  providerId: verifyNumber,
-  clientId: verifyNumber,
-  stauts: verifyNumber
+  providerId: verifyDocument,
+  clientId: verifyDocument,
+  status: verifySelect
 };
 
 const initialForm = {
   providerId: "",
   clientId: "",
-  stauts: "",
+  status: "",
 };
 
 export default function CreateSuscription() {
@@ -45,7 +45,7 @@ export default function CreateSuscription() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const parent = e.target.parentElement.parentElement;
-    if (verifyForm(parent)) {
+    if (verifyForm(parent, verifies)) {
     }
   };
 

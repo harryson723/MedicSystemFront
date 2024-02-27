@@ -1,6 +1,15 @@
 import useFormHandle from "../hooks/useFormHandle";
 import request from "../utils/request";
 import urls from "../utils/urls";
+import verifyForm, {
+  verifyDocument,
+  verifyEmail,
+  verifyNumber,
+  verifyPassword,
+  verifyPhone,
+  verifySelect,
+  verifyText,
+} from "../utils/verifyForm";
 import ButtonSubmit from "./ButtonSubmit";
 import Form from "./Form";
 import InputForm from "./InputForm";
@@ -17,35 +26,52 @@ const options = [
   },
 ];
 
+const verifies = {
+  firstname: verifyText,
+  lastname: verifyText,
+  username: verifyText,
+  email: verifyEmail,
+  documentType: verifySelect,
+  document: verifyDocument,
+  phone: verifyPhone,
+  password: verifyPassword,
+};
+
 export default function FormCreateUser({ rol = "client" }) {
-  const { form, handleForm } = useFormHandle({
-    firstname: "",
-    lastname: "",
-    username: "",
-    email: "",
-    documentType: "",
-    document: "",
-    phone: "",
-    password: "",
-    rol,
-  });
+  const { form, handleForm } = useFormHandle(
+    {
+      firstname: "",
+      lastname: "",
+      username: "",
+      email: "",
+      documentType: "",
+      document: "",
+      phone: "",
+      password: "",
+      rol,
+    },
+    verifies
+  );
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const res = await request(urls.user.create, {
-      mode: 'cors',
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzYW50aWFnbyIsImlhdCI6MTcwODgyMjQ4NiwiZXhwIjoxNzA4OTA4ODg2fQ.Ab6g3UjOZ7NGFrStonbWj5WjTqB8to1ys_fGF-QTg_g"
-      },
-      body: JSON.stringify({
-        ...form,
-        rol: [form.rol.toUpperCase()]
-      })
-    });
-    console.log(res);
+    const parent = e.target.parentElement.parentElement;
+    if (verifyForm(parent, verifies)) {
+      const res = await request(urls.user.create, {
+        mode: "cors",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzYW50aWFnbyIsImlhdCI6MTcwODgyMjQ4NiwiZXhwIjoxNzA4OTA4ODg2fQ.Ab6g3UjOZ7NGFrStonbWj5WjTqB8to1ys_fGF-QTg_g",
+        },
+        body: JSON.stringify({
+          ...form,
+          rol: [form.rol.toUpperCase()],
+        }),
+      });
+      console.log(res);
+    }
   };
   return (
     <Form>
@@ -120,6 +146,5 @@ export default function FormCreateUser({ rol = "client" }) {
 
       <ButtonSubmit handleSubmit={handleSubmit}></ButtonSubmit>
     </Form>
-
   );
 }

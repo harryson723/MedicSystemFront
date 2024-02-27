@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { showErrorForm } from "../utils/verifyForm";
 
 export default function useFormHandle(initialForm, verifies) {
   const [form, setForm] = useState(initialForm);
@@ -9,7 +10,7 @@ export default function useFormHandle(initialForm, verifies) {
       ...form,
       [e.target.name]: value,
     });
-    console.log(verifies[e.target.name](value));
+    showErrorForm(e.target, verifies[e.target.name]);
   };
 
   return { form, handleForm };
