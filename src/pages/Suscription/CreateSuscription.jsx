@@ -19,24 +19,26 @@ import Alert from "../../components/Alert";
 
 const options = [
   {
-    label: "Activo",
-    value: "available",
+    label: "Disponible",
+    value: "AVAILABLE",
   },
   {
-    label: "Deshabilitado",
-    value: "disable",
+    label: "No disponible",
+    value: "DISABLE",
   },
 ];
 
 const verifies = {
-  providerId: verifyDocument,
-  clientId: verifyDocument,
-  status: verifySelect,
+  provider: verifyDocument,
+  client: verifyDocument,
+  status: verifySelect
 };
 
 const initialForm = {
   providerId: "",
   clientId: "",
+  provider: "",
+  client: "",
   status: "",
 };
 
@@ -48,14 +50,35 @@ export default function CreateSuscription() {
   const [showAlert, setShowAlert] = useState({
     show: false,
     message: "",
-    type: "success",
+    type: "success"
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const parent = e.target.parentElement.parentElement;
     if (verifyForm(parent, verifies)) {
+      const data = await request(
+        urls.suscription.create,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + user.token,
+          },
+          body: JSON.stringify({
+            clientId: form.clientId,
+            providerId: form.providerId,
+            status: form.status
+          })
+        }
+      );
+      return;
     }
+    setShowAlert({
+      show: true,
+      message: "Error en el envio de los datos",
+      type: "error"
+    });
   };
 
   const searchUser = async (e, rol) => {
@@ -73,6 +96,14 @@ export default function CreateSuscription() {
     setShowTable(true);
     if (data.error) return setClient([]);
     setClient([data]);
+    if (rol == 'CLIENT') setForm({
+      ...form,
+      clientId: data.id
+    });
+    else if (rol == 'PROVIDER') setForm({
+      ...form,
+      providerId: data.id
+    });
   };
 
   return (
@@ -80,20 +111,20 @@ export default function CreateSuscription() {
       <Alert alert={showAlert} />
       <Form>
         <div>
-          <label htmlFor="providerId">Documento proveedor:</label>
+          <label htmlFor="provider">Documento proveedor:</label>
           <InputForm
-            name="providerId"
-            value={form.providerId}
+            name="provider"
+            value={form.provider}
             handleForm={handleForm}
             placeholder="Ingrese el numero de documento"
           ></InputForm>
           <Button text="Buscar" onclick={(e) => searchUser(e, "PROVIDER")} />
         </div>
         <div>
-          <label htmlFor="clientId">Documento cliente:</label>
+          <label htmlFor="client">Documento cliente:</label>
           <InputForm
-            name="clientId"
-            value={form.clientId}
+            name="client"
+            value={form.client}
             handleForm={handleForm}
             placeholder="Ingrese el numero de documento"
           ></InputForm>
@@ -101,7 +132,7 @@ export default function CreateSuscription() {
         </div>
         <div>
           <label htmlFor="status">Tipo de servicio:</label>
-          <SelectForm id="status" defaultV="Seleccione" options={options} />
+          <SelectForm id="status" defaultV="Seleccione" options={options} handleForm={handleForm} />
         </div>
         <ButtonSubmit value="Crear" handleSubmit={handleSubmit} />
       </Form>

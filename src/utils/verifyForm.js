@@ -1,8 +1,7 @@
 let verify = 0;
 
-const showErrorForm = (element, verify) => {
-  const flag = verify(element.value);
-
+const showErrorForm = (element, verifyF) => {
+  const flag = verifyF(element.value);
   if (flag != true) {
     element.classList.add("input-error");
     if (element.nextElementSibling)

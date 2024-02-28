@@ -12,7 +12,7 @@ export default function GetSuscription() {
 
     return (
         <>
-            <List data={<SuscriptionList items={suscriptions} />} title="Gestión de proveedores">
+            <List data={<SuscriptionList items={suscriptions} option="pi pi-ellipsis-h text-2xl" />} title="Gestión de proveedores">
                 <Colunm>ID suscripción</Colunm>
                 <Colunm>Estado</Colunm>
                 <Colunm>Proveedor</Colunm>

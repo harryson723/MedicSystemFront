@@ -13,5 +13,5 @@ export default function useFormHandle(initialForm, verifies) {
     showErrorForm(e.target, verifies[e.target.name]);
   };
 
-  return { form, handleForm };
+  return { form, handleForm, setForm };
 }
