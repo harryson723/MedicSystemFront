@@ -11,7 +11,11 @@ import { useContext, useState } from "react";
 import List from "../../components/List";
 import Colunm from "../../components/Columns";
 import UserList from "../../components/UserList";
-import verifyForm, { verifyDocument, verifySelect } from "../../utils/verifyForm";
+import verifyForm, {
+  verifyDocument,
+  verifySelect,
+} from "../../utils/verifyForm";
+import Alert from "../../components/Alert";
 
 const options = [
   {
@@ -27,7 +31,7 @@ const options = [
 const verifies = {
   providerId: verifyDocument,
   clientId: verifyDocument,
-  status: verifySelect
+  status: verifySelect,
 };
 
 const initialForm = {
@@ -38,9 +42,14 @@ const initialForm = {
 
 export default function CreateSuscription() {
   const { user } = useContext(UserContext);
+  const { form, handleForm } = useFormHandle(initialForm, verifies);
   const [client, setClient] = useState([]);
   const [showTable, setShowTable] = useState(false);
-  const { form, handleForm } = useFormHandle(initialForm, verifies);
+  const [showAlert, setShowAlert] = useState({
+    show: false,
+    message: "",
+    type: "success",
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,6 +77,7 @@ export default function CreateSuscription() {
 
   return (
     <div className="w-full">
+      <Alert alert={showAlert} />
       <Form>
         <div>
           <label htmlFor="providerId">Documento proveedor:</label>

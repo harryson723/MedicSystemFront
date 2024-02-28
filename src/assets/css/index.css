@@ -1,6 +1,8 @@
+@import 'alert.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 input:focus {
     outline: none;
