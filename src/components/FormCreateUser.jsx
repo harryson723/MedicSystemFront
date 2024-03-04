@@ -1,3 +1,4 @@
+import { useState } from "react";
 import useFormHandle from "../hooks/useFormHandle";
 import request from "../utils/request";
 import urls from "../utils/urls";
@@ -14,6 +15,7 @@ import ButtonSubmit from "./ButtonSubmit";
 import Form from "./Form";
 import InputForm from "./InputForm";
 import SelectForm from "./SelectForm";
+import Alert from "./Alert";
 
 const options = [
   {
@@ -53,6 +55,12 @@ export default function FormCreateUser({ rol = "client" }) {
     verifies
   );
 
+  const [showAlert, setShowAlert] = useState({
+    show: false,
+    message: "",
+    type: "success"
+  });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const parent = e.target.parentElement.parentElement;
@@ -71,80 +79,94 @@ export default function FormCreateUser({ rol = "client" }) {
         }),
       });
       console.log(res);
+      setShowAlert({
+        show: true,
+        message: "Suscripción creada con exito",
+        type: "success"
+      });
+      return;
     }
+    setShowAlert({
+      show: true,
+      message: "Error en el envio de los datos",
+      type: "error"
+    });
   };
   return (
-    <Form>
-      <div>
-        <label htmlFor="firstname">Nombre:</label>
-        <InputForm
-          name="firstname"
-          value={form.firstname}
-          handleForm={handleForm}
-          placeholder="Ingrese su nombre"
-        ></InputForm>
-      </div>
-      <div>
-        <label htmlFor="lastname">Apellido:</label>
-        <InputForm
-          name="lastname"
-          value={form.lastname}
-          handleForm={handleForm}
-          placeholder="Ingrese su apellido"
-        ></InputForm>
-      </div>
-      <div>
-        <label htmlFor="username">Nombre de usuario:</label>
-        <InputForm
-          name="username"
-          value={form.username}
-          handleForm={handleForm}
-          placeholder="Ingrese su usuario"
-        ></InputForm>
-      </div>
-      <div>
-        <label htmlFor="email">Correo electronico:</label>
-        <InputForm
-          name="email"
-          value={form.email}
-          handleForm={handleForm}
-          placeholder="Ingrese su usuario"
-        ></InputForm>
-      </div>
-      <div>
-        <label htmlFor="documentType">Tipo de documento:</label>
-        <SelectForm id="documentType" defaultV="Seleccione" options={options} handleForm={handleForm} />
-      </div>
-      <div>
-        <label htmlFor="document">Numero de documento:</label>
-        <InputForm
-          name="document"
-          value={form.document}
-          handleForm={handleForm}
-          placeholder="Ingrese su usuario"
-        ></InputForm>
-      </div>
-      <div>
-        <label htmlFor="phone">Telefono:</label>
-        <InputForm
-          name="phone"
-          value={form.phone}
-          handleForm={handleForm}
-          placeholder="Ingrese su usuario"
-        ></InputForm>
-      </div>
-      <div>
-        <label htmlFor="password">Contraseña</label>
-        <InputForm
-          name="password"
-          value={form.password}
-          handleForm={handleForm}
-          placeholder="Ingrese su contraseña"
-          type="password"
-        ></InputForm>
-      </div>
+    <>
+      {showAlert.show && <Alert alert={showAlert} setShowAlert={setShowAlert} />}
+      <Form>
+        <div>
+          <label htmlFor="firstname">Nombre:</label>
+          <InputForm
+            name="firstname"
+            value={form.firstname}
+            handleForm={handleForm}
+            placeholder="Ingrese su nombre"
+          ></InputForm>
+        </div>
+        <div>
+          <label htmlFor="lastname">Apellido:</label>
+          <InputForm
+            name="lastname"
+            value={form.lastname}
+            handleForm={handleForm}
+            placeholder="Ingrese su apellido"
+          ></InputForm>
+        </div>
+        <div>
+          <label htmlFor="username">Nombre de usuario:</label>
+          <InputForm
+            name="username"
+            value={form.username}
+            handleForm={handleForm}
+            placeholder="Ingrese su usuario"
+          ></InputForm>
+        </div>
+        <div>
+          <label htmlFor="email">Correo electronico:</label>
+          <InputForm
+            name="email"
+            value={form.email}
+            handleForm={handleForm}
+            placeholder="Ingrese su usuario"
+          ></InputForm>
+        </div>
+        <div>
+          <label htmlFor="documentType">Tipo de documento:</label>
+          <SelectForm id="documentType" defaultV="Seleccione" options={options} handleForm={handleForm} />
+        </div>
+        <div>
+          <label htmlFor="document">Numero de documento:</label>
+          <InputForm
+            name="document"
+            value={form.document}
+            handleForm={handleForm}
+            placeholder="Ingrese su usuario"
+          ></InputForm>
+        </div>
+        <div>
+          <label htmlFor="phone">Telefono:</label>
+          <InputForm
+            name="phone"
+            value={form.phone}
+            handleForm={handleForm}
+            placeholder="Ingrese su usuario"
+          ></InputForm>
+        </div>
+        <div>
+          <label htmlFor="password">Contraseña</label>
+          <InputForm
+            name="password"
+            value={form.password}
+            handleForm={handleForm}
+            placeholder="Ingrese su contraseña"
+            type="password"
+          ></InputForm>
+        </div>
 
-      <ButtonSubmit handleSubmit={handleSubmit}></ButtonSubmit>
-    </Form>
+        <ButtonSubmit handleSubmit={handleSubmit}></ButtonSubmit>
+      </Form>
+    </>
   );
 }

@@ -16,7 +16,7 @@ const colors = {
   },
 };
 
-export default function Alert({ alert }) {
+export default function Alert({ alert, setShowAlert }) {
   const theme = `pi ${icons[alert.type]}
     absolute bottom-[80%]
     text-[#6daa2f] alert-icon`;
@@ -30,8 +30,13 @@ export default function Alert({ alert }) {
       document.getElementById("alert-icon").style.color =
         colors[alert.type].text;
       setTimeout(
-        () =>
-          document.getElementById("alert-container").classList.add("salida"),
+        () => {
+          document.getElementById("alert-container").classList.add("salida");
+          setShowAlert({
+            ...alert,
+            show: false
+          });
+        },
         3000
       );
     }
@@ -39,23 +44,21 @@ export default function Alert({ alert }) {
 
   return (
     <>
-      {alert.show && (
-        <div className="absolute right-0  mt-0 bg-white alert-container ">
-          <div id="alert-container">
-            <div className={`alert-icon-container `}>
-              <i id="alert-icon" className={theme}></i>
-            </div>
-            <div
-              id="alert-text"
-              className="border border-solid
+      <div className="absolute right-0  mt-0 bg-white alert-container ">
+        <div id="alert-container">
+          <div className={`alert-icon-container `}>
+            <i id="alert-icon" className={theme}></i>
+          </div>
+          <div
+            id="alert-text"
+            className="border border-solid
           rounded-2xl flex items-center
           justify-start p-10 overflow-hidden"
-            >
-              <span className="alert-text">{alert.message}</span>
-            </div>
+          >
+            <span className="alert-text">{alert.message}</span>
           </div>
         </div>
-      )}
+      </div>
     </>
   );
 }

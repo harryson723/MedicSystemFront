@@ -12,6 +12,7 @@ import urls from "../../utils/urls";
 import List from "../../components/List";
 import Colunm from "../../components/Columns";
 import UserList from "../../components/UserList";
+import Alert from "../../components/Alert";
 
 const options = [
   {
@@ -50,6 +51,11 @@ export default function CreateService() {
   const [client, setClient] = useState([]);
   const [showTable, setShowTable] = useState(false);
   const { form, handleForm, setForm } = useFormHandle(initialForm, verifies);
+  const [showAlert, setShowAlert] = useState({
+    show: false,
+    message: "",
+    type: "success"
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -69,7 +75,18 @@ export default function CreateService() {
         }
       );
       form.provider = '';
+      setShowAlert({
+        show: true,
+        message: "Suscripción creada con exito",
+        type: "success"
+      });
+      return;
     }
+    setShowAlert({
+      show: true,
+      message: "Error en el envio de los datos",
+      type: "error"
+    });
   };
 
   const searchUser = async e => {
@@ -94,6 +111,7 @@ export default function CreateService() {
   };
   return (
     <div className="w-full">
+      {showAlert.show && <Alert alert={showAlert} setShowAlert={setShowAlert} />}
       <Form>
         <div>
           <label htmlFor="name">Nombre:</label>

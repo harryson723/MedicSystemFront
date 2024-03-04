@@ -72,6 +72,11 @@ export default function CreateSuscription() {
           })
         }
       );
+      setShowAlert({
+        show: true,
+        message: "Suscripción creada con exito",
+        type: "success"
+      });
       return;
     }
     setShowAlert({
@@ -108,7 +113,7 @@ export default function CreateSuscription() {
 
   return (
     <div className="w-full">
-      <Alert alert={showAlert} />
+      {showAlert.show && <Alert alert={showAlert} setShowAlert={setShowAlert} />}
       <Form>
         <div>
           <label htmlFor="provider">Documento proveedor:</label>
