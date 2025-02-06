@@ -1,0 +1,83 @@
+.alert-container {
+  opacity: 0;
+  animation-name: alert;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+.alert-icon {
+  opacity: 0;
+  right: 10%;
+  border-collapse: collapse;
+  box-sizing: border-box;
+  border-radius: 50px;
+  border: 2.5px solid;
+  border-bottom: 0;
+  border-left: 0;
+  border-right: 0;
+  font-size: 1.5rem;
+  padding: 0.7rem;
+  background-color: #fff;
+  transform: translateY(50%);
+  animation-name: alert-icon;
+  animation-duration: 1.5s;
+  animation-delay: 0.6s;
+  animation-fill-mode: forwards;
+}
+
+.alert-text {
+  opacity: 0;
+  transform: translateX(150%);
+  animation-name: alert-text;
+  animation-duration: 1.5s;
+  animation-delay: 0.6s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes alert {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 30%;
+    opacity: 1;
+  }
+}
+
+@keyframes alert-icon {
+  0% {
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(15%);
+  }
+}
+
+@keyframes alert-text {
+  0% {
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.salida {
+  animation-name: salida;
+  animation-fill-mode: forwards;
+  animation-duration: 2s;
+}
+
+@keyframes salida {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-40%);
+    opacity: 0;
+    display: none;
+  }
+}

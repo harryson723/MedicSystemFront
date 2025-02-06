@@ -1,6 +1,16 @@
+@import 'alert.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+input:focus {
+    outline: none;
+}
+
+input,select {
+    transition: .4s ease-in-out;
+}
 
 
 .img-radius-banner1 {
@@ -22,4 +32,53 @@
 }
 
 
+.line-animation::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background:#0d5f96;
+    transition: .3s;
+}
 
+.line-animation:hover::before {
+    width: 100%;
+}
+
+.btn-submit {
+    transition: .3s;
+}
+
+.btn-submit:hover {
+    cursor: pointer;
+    background-color: #0d5f96;
+}
+
+.input-error {
+    border-color: #E53030;
+}
+
+.input-error::placeholder, .input-error option.first:disabled { 
+    color: #f86868;
+}
+
+.span-error { 
+    color: #f86868;
+    display: block;
+    font-size: 0.9rem;
+    margin: 5px 0 20px 10px;
+}
+
+i {
+    padding: 5px;
+    border-radius: 15px;
+    color: #333;
+    transition: .6s ease;
+}
+
+i:hover {
+    cursor: pointer;
+    background-color: #eee;
+}
